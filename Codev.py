@@ -567,6 +567,8 @@ def removeCodev(language, text):
 	while i >= 0:
 		j = text.find(token, i+1)
 		ej = text.find("\n", j)
+		if ej == -1:
+			ej = len(text)
 		text = text[:i] + insertCode + text[ej:]
 		i = text.find(token)
 	return text
@@ -579,6 +581,8 @@ def removeCodevComments(language, text):
 		i = text.find(token)
 		while i >= 0:
 			ej = text.find("\n", i)
+			if ej==-1:
+				ej = len(text)
 			ei = text[:i].rfind("\n")
 			text = text[:ei+1] + text[ej+1:]
 			i = text.find(token)

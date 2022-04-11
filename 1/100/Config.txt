@@ -1,8 +1,10 @@
 Escrevendo em múltiplas linhas
 1
-Escreva um programa que escreva na tela o texto abaixo, que está 
+Elabore um programa que escreva na tela o texto que está 
 entre as linhas pontilhadas, exatamente como apresentado.
-Cada linha do texto deve ser escrita separadamente das demais.
+Cada linha do texto deve ser escrita separadamente das 
+demais no programa, isto é, deve haver um comando de 
+escrita na tela por linha de texto a ser impressa.
 
 ------------------------------
 Bom dia!
