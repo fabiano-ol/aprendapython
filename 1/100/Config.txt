@@ -1,0 +1,14 @@
+Escrevendo em múltiplas linhas
+1
+Escreva um programa que escreva na tela o texto abaixo, que está 
+entre as linhas pontilhadas, exatamente como apresentado.
+Cada linha do texto deve ser escrita separadamente das demais.
+
+------------------------------
+Bom dia!
+
+Hoje será o primeiro dia do restante
+de nossas vidas!
+
+Aproveitemos!
+------------------------------

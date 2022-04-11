@@ -1,0 +1,9 @@
+- Lembre-se que o comando 
+
+  print('texto')
+  
+  escreve na tela o texto informado como argumento, a partir do ponto
+  da tela onde está parada a escrita no terminal. Ao final dessa escrita, 
+  é acrescentada a marcação no texto que o próximo ponto de escrita será
+  a próxima linha, em sua primeira coluna.
+
