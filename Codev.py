@@ -767,7 +767,7 @@ def DelConfirmCode(eid, hid):
 	code = "{0}/{1}/{2}/KeyCode.{3}".format(REPOSITORY_FOLDER, hid, eid, codeExt)
 	rm(code)
 
-def DownloadHW(hid, creating):
+def DownloadHW(hid, creating, onlyNew):
 	if not checkConnection(True):
 		return
 	hwurl = "{0}/{1}".format(SERVER_URL, hid)
@@ -787,14 +787,6 @@ def DownloadHW(hid, creating):
 		exurl = hwurl + "/" + eid
 		exfolder = hwfolder + "/" + eid
 		createEx = not isDir(exfolder)
-		if createEx:
-			mkdir(exfolder)
-		filesOverwrite = [CONFIG_FILE, "Solution.txt", "Input.txt"]
-		if language == "C++":
-			filesKeepOriginal = ["Code.cpp"]
-		else:
-			filesKeepOriginal = ["Code.py"]
-		filesRem = [VERIFIED_FILE]
 
 		def DownloadSeqFiles(basename, extension):
 			i = 1
@@ -809,28 +801,35 @@ def DownloadHW(hid, creating):
 				i = i + 1
 				f = "{0}{1}.{2}".format(basename, i, extension)
 
-		for f in filesOverwrite:
-			writeFile(exfolder + "/" + f, getURL(exurl + "/" + f))
-		for f in filesKeepOriginal:
-			fn = exfolder + "/" + f
-			if not isFile(fn):
-				writeFile(fn, removeCodev(language, clear(getURL(exurl + "/" + f))))
-		for f in filesRem:
-			rm(exfolder + "/" + f)
-		DownloadSeqFiles('Figure', 'pdf')
-		if language == "C++":
-			DownloadSeqFiles('Bib', 'h')
-		else:
-			DownloadSeqFiles('Bib', 'py')
-		DownloadSeqFiles('Hint', 'txt')
+		if not onlyNew or createEx:
+			if createEx:
+				mkdir(exfolder)
+			filesOverwrite = [CONFIG_FILE, "Solution.txt", "Input.txt"]
+			if language == "C++":
+				filesKeepOriginal = ["Code.cpp"]
+			else:
+				filesKeepOriginal = ["Code.py"]
+			filesRem = [VERIFIED_FILE]
+
+			for f in filesOverwrite:
+				writeFile(exfolder + "/" + f, getURL(exurl + "/" + f))
+			for f in filesKeepOriginal:
+				fn = exfolder + "/" + f
+				if not isFile(fn):
+					writeFile(fn, removeCodev(language, clear(getURL(exurl + "/" + f))))
+			for f in filesRem:
+				rm(exfolder + "/" + f)
+			DownloadSeqFiles('Figure', 'pdf')
+			if language == "C++":
+				DownloadSeqFiles('Bib', 'h')
+			else:
+				DownloadSeqFiles('Bib', 'py')
+			DownloadSeqFiles('Hint', 'txt')
 
 		econt += 1
 
 	if creating:
 		repository.add(hid)
-
-def UpdateHW(hid):
-	DownloadHW(hid, False)
 
 def GenMenuReadHW(eid, hid):
 	rep = repository("local")
@@ -894,6 +893,7 @@ def GenMenuOpenHW(hid):
 		i += 1
 	Opt.append(None)
 	Opt.append(["u", color("Update Homework"), ["updHW", hid]])
+	Opt.append(["n", color("Download New Exercises"), ["addnewHW", hid]])
 	Opt.append(["d", color("Delete Homework"), ["delHW", hid]])
 	Opt.append(None)
 	Opt.append(["b", color("Go Back"), ["hwList"]])
@@ -1171,7 +1171,7 @@ def GenMenu():
 		elif cmd == "newHW":
 			chosen = DisplayMenu(GenMenuNewHW())
 		elif cmd == "downloadHW":
-			DownloadHW(chosen[1], True)
+			DownloadHW(chosen[1], True, True)
 			chosen = ["hwList"]
 		elif cmd == "openHW":
 			chosen = DisplayMenu(GenMenuOpenHW(chosen[1]))
@@ -1180,7 +1180,10 @@ def GenMenu():
 		elif cmd == "delHW":
 			chosen = DisplayMenu(GenMenuDelHW(chosen[1]))
 		elif cmd == "updHW":
-			DownloadHW(chosen[1], False)
+			DownloadHW(chosen[1], False, False)
+			chosen = ["openHW", chosen[1]]
+		elif cmd == "addnewHW":
+			DownloadHW(chosen[1], False, True)
 			chosen = ["openHW", chosen[1]]
 		elif cmd == "delConfirmHW":
 			DelConfirmHW(chosen[1])
@@ -1279,8 +1282,8 @@ if checkConnection():
 
 if len(sys.argv) > 1:
 		if sys.argv[1] == "upload":
-			hid = sys.argv[2]; eid = sys.argv[3]
-			exfolder = "{0}/{1}/{2}".format(REPOSITORY_FOLDER, hid, eid)
+			rf = sys.argv[2]; hid = sys.argv[3]; eid = sys.argv[4]
+			exfolder = "{0}/{1}/{2}".format(rf, hid, eid)
 			files = ["Hint2.txt"]
 			language = exercise.getLanguage(eid)
 			files.append("Code.cpp" if language == "C++" else "Code.py")
@@ -1291,8 +1294,8 @@ if len(sys.argv) > 1:
 				else:
 					print(keyf + " not found.")
 		elif sys.argv[1] == "pass":
-			hid = sys.argv[2]
-			hwfolder = "{0}/{1}".format(REPOSITORY_FOLDER, hid)
+			rf = sys.argv[2]; hid = sys.argv[3]
+			hwfolder = "{0}/{1}".format(rf, hid)
 			if isFile(hwfolder + "/KeyPass.txt"):
 				writeFile(hwfolder + "/Pass.txt", obscure(readFile(hwfolder + "/KeyPass.txt")))
 			else:
