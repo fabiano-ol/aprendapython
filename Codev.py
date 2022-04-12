@@ -17,7 +17,7 @@ CONFIG_FILE = "Config.txt"
 VERIFIED_FILE = "Verified.txt"
 
 def getVersion():
-	return "1.1"
+	return "1.2"
 
 def isVersionAtLeast(ver):
 	def Convert(verTXT):
@@ -114,8 +114,8 @@ class repository(object):
 			loadhw = (self.target == "local") or lrep.find(hid) == None
 			if loadhw:
 				hw = homework(hid)
-				hw.load(self.target)
-				self.hws.append(hw)
+				if hw.load(self.target):
+					self.hws.append(hw)
 			hcont += 1
 
 
@@ -134,15 +134,18 @@ class homework(object):
 				return ex
 
 	def load(self, target):
+		self.exs = []
 		if target == "local":
 			hwfolder = REPOSITORY_FOLDER + "/" + self.hid + "/" + CONFIG_FILE
-			hwdata = readFile(hwfolder)
+			if isFile(hwfolder):
+				hwdata = readFile(hwfolder)
+			else:
+				return False
 		else:
 			hwfolder = SERVER_URL + "/" + self.hid + "/" + CONFIG_FILE
 			hwdata = getURL(hwfolder)
 		hwdata = split(hwdata, "\n")
 		self.description = hwdata[0]
-		self.exs = []
 		cokay = 0
 		lsteid = split(hwdata[1], " ")
 		econt = 1
@@ -150,15 +153,16 @@ class homework(object):
 			if target != "local":
 				print("Retrieving exercise data {0}/{1}...".format(econt, len(lsteid)))
 			ex = exercise(eid, self.hid)
-			ex.load(target)
-			if ex.status == "OK":
-				cokay += 1
-			self.exs.append(ex)
+			if ex.load(target):
+				if ex.status == "OK":
+					cokay += 1
+				self.exs.append(ex)
 			econt += 1
 		if target == "local":
 			self.status = "{0}/{1}".format(cokay, len(self.exs))
 		else:
 			self.status = "{0}".format(len(self.exs))
+		return True
 
 	def cstatus(self):
 		s = split(self.status, "/")
@@ -194,7 +198,10 @@ class exercise(object):
 	def load(self, target):
 		if target == "local":
 			exfolder = REPOSITORY_FOLDER + "/" + self.hid + "/" + self.eid
-			exdata = readFile(exfolder + "/" + CONFIG_FILE)
+			if isFile(exfolder + "/" + CONFIG_FILE):
+				exdata = readFile(exfolder + "/" + CONFIG_FILE)
+			else:
+				return False
 		else:
 			exfolder = SERVER_URL + "/" + self.hid + "/" + self.eid
 			exdata = getURL(exfolder + "/" + CONFIG_FILE)
@@ -210,7 +217,7 @@ class exercise(object):
 		self.language = exercise.getLanguage(self.eid)
 		if target == "local":
 			self.status = "OK" if isFile(exfolder + "/" + VERIFIED_FILE) else "Pending"
-
+		return True
 
 def split(txt, sep):
 	r = []
@@ -312,7 +319,7 @@ def checkConnection(printWarning=False):
 		return getURL(servurl) != ""
 	except:
 		if printWarning:
-			print("Connection to the server seems to be down...")
+			print("Connection to the server could not be established...")
 			printWait()
 		return False
 
@@ -892,8 +899,9 @@ def GenMenuOpenHW(hid):
 		Opt.append([str(i), ex.title + " (" + ex.cstatus() + ")", ["readHW", ex.eid, hid]])
 		i += 1
 	Opt.append(None)
+	downcolor = "YELLOW" if isThereNewEx(hid) else "CYAN"
+	Opt.append(["n", color("Download New Exercises", downcolor), ["addnewHW", hid]])
 	Opt.append(["u", color("Update Homework"), ["updHW", hid]])
-	Opt.append(["n", color("Download New Exercises"), ["addnewHW", hid]])
 	Opt.append(["d", color("Delete Homework"), ["delHW", hid]])
 	Opt.append(None)
 	Opt.append(["b", color("Go Back"), ["hwList"]])
@@ -998,6 +1006,34 @@ def EditKeyCode(eid, hid):
 		cmd = ParseParams(getLanguageSetting(ex.language, "EDITOR_CMD").replace("<CODE_FILE>", path))
 		run(cmd[0], cmd[1:])
 
+def isThereNewHW():
+	if checkConnection():
+		hwurl = "{0}".format(SERVER_URL)
+		hwfolder = "{0}".format(REPOSITORY_FOLDER)
+		f = CONFIG_FILE
+		cr = getURL(hwurl + "/" + f); lr = split(cr, " ")
+		cl = readFile(hwfolder + "/" + f); ll = split(cl, " ")
+		for hid in lr:
+			if not hid in ll:
+				return True
+		return False
+	return False
+
+def isThereNewEx(hid):
+	if checkConnection():
+		hwurl = "{0}/{1}".format(SERVER_URL, hid)
+		hwfolder = "{0}/{1}".format(REPOSITORY_FOLDER, hid)
+		f = CONFIG_FILE
+		cr = getURL(hwurl + "/" + f)
+		cl = readFile(hwfolder + "/" + f)
+		lr = split(split(cr, "\n")[1], " ")
+		ll = split(split(cl, "\n")[1], " ")
+		for eid in lr:
+			if not eid in ll:
+				return True
+		return False
+	return False
+
 def GenMenuHWList():
 	rep = repository("local")
 	rep.load()
@@ -1014,7 +1050,8 @@ def GenMenuHWList():
 			i += 1
 	Opt.append(None)
 	selectColor("CYAN")
-	Opt.append(["n", color("Download New Homework", "YELLOW"), ["newHW"]])
+	downcolor = "YELLOW" if isThereNewHW() else "CYAN"
+	Opt.append(["n", color("Download New Homework", downcolor), ["newHW"]])
 	Opt.append(None)
 	if UPDATE_SOFTWARE == "1":
 		Opt.append(["u", color("Update Codev Software"), ["updSoft"]])
