@@ -1,0 +1,16 @@
+Escrevendo múltiplas linhas na tela (com um único comando)
+1
+Elabore um programa que escreva na tela o texto que está 
+entre as linhas pontilhadas, exatamente como apresentado.
+Todo o texto deve ser escrito de uma única vez, isto é, 
+deve haver apenas um comando de escrita na tela em seu
+programa.
+
+------------------------------
+Bom dia!
+
+Hoje será o primeiro dia do restante
+de nossas vidas!
+
+Aproveitemos!
+------------------------------

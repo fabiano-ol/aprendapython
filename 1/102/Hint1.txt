@@ -1,0 +1,20 @@
+- O comando 
+
+  print('texto', end='final do texto')
+  
+  escreve na tela o texto informado como argumento, a partir do ponto
+  da tela onde está parada a escrita no terminal. Ao final dessa escrita, 
+  é acrescentado ao texto aquele dado em 'final do texto'.
+  
+  Esse uso do comando print serve para modificar o seu comportamento 
+  padrão, que é o de inserir uma marca de quebra de linha ao final do texto.
+  Ao invés da marca de quebra de linha, o final de texto que é inserido.
+  
+  Ou seja,
+  
+      print('texto')
+      
+  equivale a 
+  
+      print('texto', end='\n')
+

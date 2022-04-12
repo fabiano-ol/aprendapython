@@ -1,0 +1,10 @@
+- O símbolo '\n' em meio a uma cadeia de caracteres representa
+  a quebra de linha. Assim, escrever
+  
+  Essa é uma linha e
+  essa é outra.
+  
+  dessa forma, em duas linhas separadas, equivale a escrever
+  
+  Essa é uma linha e\nessa é outra.
+

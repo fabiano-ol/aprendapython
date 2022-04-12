@@ -1,0 +1,11 @@
+Escrevendo uma única linha na tela (com múltiplos comandos)
+1
+Elabore um programa que escreva na tela o texto que está 
+entre as linhas pontilhadas, exatamente como apresentado.
+Cada item da lista presente no texto deve ser escrito por 
+um comando diferente, ao invés de todos eles serem 
+impressos por um único comando.
+
+------------------------------
+Números de 1 a 5: 1,2,3,4,5
+------------------------------
