@@ -1032,12 +1032,12 @@ def isThereNewHW():
 		hwurl = "{0}".format(SERVER_URL)
 		hwfolder = "{0}".format(REPOSITORY_FOLDER)
 		f = CONFIG_FILE
-		cr = getURL(hwurl + "/" + f); lr = split(cr, " ")
-		cl = readFile(hwfolder + "/" + f); ll = split(cl, " ")
-		for hid in lr:
-			if not hid in ll:
-				return True
-		return False
+		if isFile(hwfolder + "/" + f):
+			cr = getURL(hwurl + "/" + f); lr = split(cr, " ")
+			cl = readFile(hwfolder + "/" + f); ll = split(cl, " ")
+			for hid in lr:
+				if not hid in ll:
+					return True
 	return False
 
 def isThereNewEx(hid):
