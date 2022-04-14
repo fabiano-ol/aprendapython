@@ -782,7 +782,7 @@ def DelConfirmCode(eid, hid):
 	rm(code)
 
 def getProgressBar(text, count):
-	b = FillingSquaresBar(text + ' ', suffix='%(percent).0f%% (%(eta)ds)', max=count)
+	b = FillingSquaresBar(text + ' ', fill='█', suffix='%(percent).0f%% (%(eta)ds)', max=count)
 	return b
 
 def DownloadHW(hid, creating, onlyNew):
