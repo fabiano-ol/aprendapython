@@ -12,13 +12,13 @@ import threading
 import psutil
 from colorama import Fore, Style
 from colorama import init as colorama_init
-import progressbar
+from progress.bar import FillingSquaresBar
 
 CONFIG_FILE = "Config.txt"
 VERIFIED_FILE = "Verified.txt"
 
 def getVersion():
-	return "1.2.1"
+	return "1.2.2"
 
 def isVersionAtLeast(ver):
 	def Convert(verTXT):
@@ -153,10 +153,9 @@ class homework(object):
 		b = None
 		if target != "local":
 			b = getProgressBar("Retrieving exercise data... ", len(lsteid))
-			b.start()
 		for eid in lsteid:
 			if b != None:
-				b.update(econt-1)
+				b.next()
 			ex = exercise(eid, self.hid)
 			if ex.load(target):
 				if ex.status == "OK":
@@ -783,11 +782,7 @@ def DelConfirmCode(eid, hid):
 	rm(code)
 
 def getProgressBar(text, count):
-	widgets = [	text,
-		progressbar.Percentage(),
-		progressbar.Bar(marker=color('=', "CYAN"), left=' [', right=']'),
-	]
-	b = progressbar.ProgressBar(widgets=widgets, max_value=count)
+	b = FillingSquaresBar(text + ' ', suffix='%(percent).0f%% (%(eta)ds)', max=count)
 	return b
 
 def DownloadHW(hid, creating, onlyNew):
@@ -805,7 +800,6 @@ def DownloadHW(hid, creating, onlyNew):
 	exLst = split(split(c, "\n")[1], " ")
 	econt = 1
 	b = getProgressBar("Retrieving exercise data... ", len(exLst))
-	b.start()
 	for eid in exLst:
 		language = exercise.getLanguage(eid)
 
@@ -852,7 +846,7 @@ def DownloadHW(hid, creating, onlyNew):
 			DownloadSeqFiles('Hint', 'txt')
 
 		econt += 1
-		b.update(econt-1)
+		b.next()
 	b.finish()
 
 	if creating:
@@ -1038,6 +1032,8 @@ def isThereNewHW():
 			for hid in lr:
 				if not hid in ll:
 					return True
+		else:
+			return True
 	return False
 
 def isThereNewEx(hid):
