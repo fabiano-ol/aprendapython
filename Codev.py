@@ -12,6 +12,7 @@ import threading
 import psutil
 from colorama import Fore, Style
 from colorama import init as colorama_init
+import progressbar
 
 CONFIG_FILE = "Config.txt"
 VERIFIED_FILE = "Verified.txt"
@@ -149,15 +150,22 @@ class homework(object):
 		cokay = 0
 		lsteid = split(hwdata[1], " ")
 		econt = 1
+		b = None
+		if target != "local":
+			b = getProgressBar("Retrieving exercise data... ", len(lsteid))
+			b.start()
 		for eid in lsteid:
-			if target != "local":
-				print("Retrieving exercise data {0}/{1}...".format(econt, len(lsteid)))
+			if b != None:
+				b.update(econt-1)
 			ex = exercise(eid, self.hid)
 			if ex.load(target):
 				if ex.status == "OK":
 					cokay += 1
 				self.exs.append(ex)
 			econt += 1
+		if b != None:
+			b.finish()
+
 		if target == "local":
 			self.status = "{0}/{1}".format(cokay, len(self.exs))
 		else:
@@ -774,6 +782,14 @@ def DelConfirmCode(eid, hid):
 	code = "{0}/{1}/{2}/KeyCode.{3}".format(REPOSITORY_FOLDER, hid, eid, codeExt)
 	rm(code)
 
+def getProgressBar(text, count):
+	widgets = [	text,
+		progressbar.Percentage(),
+		progressbar.Bar(marker=color('=', "CYAN"), left=' [', right=']'),
+	]
+	b = progressbar.ProgressBar(widgets=widgets, max_value=count)
+	return b
+
 def DownloadHW(hid, creating, onlyNew):
 	if not checkConnection(True):
 		return
@@ -788,9 +804,11 @@ def DownloadHW(hid, creating, onlyNew):
 	writeFile(hwfolder + "/" + f, c)
 	exLst = split(split(c, "\n")[1], " ")
 	econt = 1
+	b = getProgressBar("Retrieving exercise data... ", len(exLst))
+	b.start()
 	for eid in exLst:
 		language = exercise.getLanguage(eid)
-		print("Retrieving exercise data {0}/{1}...".format(econt, len(exLst)))
+
 		exurl = hwurl + "/" + eid
 		exfolder = hwfolder + "/" + eid
 		createEx = not isDir(exfolder)
@@ -834,6 +852,8 @@ def DownloadHW(hid, creating, onlyNew):
 			DownloadSeqFiles('Hint', 'txt')
 
 		econt += 1
+		b.update(econt-1)
+	b.finish()
 
 	if creating:
 		repository.add(hid)
