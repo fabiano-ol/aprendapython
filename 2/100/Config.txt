@@ -1,0 +1,20 @@
+Expressões numéricas
+1
+Elabore um programa escrevendo o resultado das seguintes expressões.
+Considere o valor de x em cada uma das expressões abaixo igual a 240.
+
+  - a soma de x com 42
+  - a diferença de x com 42
+  - a multiplicação de x por 42
+  - a divisão inteira de x por 42
+  - a divisão de x por 42, exibindo as 5 primeiras casas 
+    decimais (com arredondamento)
+  - o resto da divisão de x por 42
+  - a exponenciação de x por 5
+  - o logaritmo de x na base 10 (1 casa decimal, com arredondamento)
+  - o logaritmo de x na base 2 (1 casa decimal, com arredondamento)
+  - a divisão de x por 42, exibindo as 5 primeiras casas 
+    decimais (sem arredondamento)
+  
+Cada expressão deve ser escrita em uma linha separada. Não devem
+haver espaços antes ou depois de cada resultado.

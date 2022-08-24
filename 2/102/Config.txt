@@ -1,0 +1,19 @@
+Expressões com cadeias
+1
+Elabore um programa que escreva na tela:
+
+  - o comprimento da cadeia 'Olá Mundo!'
+  - a cadeia resultante da concatenação da cadeia 
+    'Olá Mundo! ' (atenção ao espaço em branco) com
+    'Olá de novo!'
+  - a cadeia resultante de 25 cópias concatenadas da 
+    cadeia 'Olá Mundo! ' 
+  - o 5.o caractere da cadeia 'Olá Mundo!'
+  - o 54.o caractere da cadeia resultante de 25 cópias 
+    concatenadas da cadeia 'Olá Mundo! ' 
+  - a subcadeia de 'Olá Mundo!' que se encontra entre
+    as posições 3.a e 7.a (extremos inclusive)
+  - os caracteres da cadeia 'Olá Mundo!' de posição par
+  
+Cada expressão deve ser escrita em uma linha separada. Não devem
+haver espaços antes ou depois de cada resultado.

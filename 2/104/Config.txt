@@ -1,0 +1,17 @@
+Conversão entre tipos de valores
+1
+Elabore um programa que escreva na tela o resultado de:
+
+  - a conversão do inteiro 123 para a cadeia correspondente,
+    concatenando-a com '45'
+  - a conversão do real 123.4 para a cadeia correspondente,
+    concatenando-a com '56'
+  - a conversão da cadeia '123' para o inteiro correspondente
+    aumentando-o de uma unidade
+  - a conversão da cadeia '123.4' para o real correspondente
+    diminuindo-o de uma unidade
+  - a conversão do inteiro 123 para o real correspondente
+  - a conversão do real 123.4 para o inteiro truncado correspondente
+       
+Cada expressão deve ser escrita em uma linha separada. Não devem
+haver espaços antes ou depois de cada resultado.

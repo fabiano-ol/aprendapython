@@ -1,4 +1,4 @@
-- Lembre-se que o comando 
+- O comando 
 
   print('texto')
   

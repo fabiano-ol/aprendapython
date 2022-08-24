@@ -1,0 +1,15 @@
+Expressões com caracteres
+1
+Elabore um programa que escreva na tela:
+
+  - o código ASCII associado ao caracter 'a'
+  - o código ASCII associado ao caracter 'A'
+  - o código ASCII associado ao caracter '1'
+  - o código ASCII associado ao caracter '@'
+  - o código ASCII associado ao caracter ' '
+  - o caractere associado ao código ASCII 38
+  - o caractere associado ao código ASCII 66
+  - o caractere associado ao código ASCII 126
+  
+Cada expressão deve ser escrita em uma linha separada. Não devem
+haver espaços antes ou depois de cada resultado.

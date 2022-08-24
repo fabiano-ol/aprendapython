@@ -1,0 +1,9 @@
+- Relembre que a expressão:
+
+  - len(s) resulta no comprimento da cadeia s
+  - s1+s2 resulta na concatenação das cadeias s1 e s2
+  - s*n resulta em n cópias concatenadas da cadeia s
+  - s[i:j:z] resulta na subcadeia de s que vai do caractere 
+    da posição i até aquele da posição j-1, pulando de z em
+    z caracteres
+

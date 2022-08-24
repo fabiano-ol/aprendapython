@@ -1,0 +1,19 @@
+Expressões com valores lógicos
+1
+Elabore um programa que escreva na tela o resultado de:
+
+  - Verdadeiro e Falso
+  - Verdadeiro ou Falso
+  - Verdadeiro e Verdadeiro
+  - não Verdadeiro
+  - não (não Verdadeiro ou Falso)
+  - verificar se 10 é menor que 10
+  - verificar se 10 é menor ou igual a 10
+  - verificar se 10 é maior que 10
+  - verificar se 10 é maior ou igual a 10
+  - verificar se 10 é igual a 10
+  - verificar se 10 é diferente a 10
+  - verificar se a cadeia 'Mundo' é subcadeia de 'Olá Mundo!'
+  
+Cada expressão deve ser escrita em uma linha separada. Não devem
+haver espaços antes ou depois de cada resultado.

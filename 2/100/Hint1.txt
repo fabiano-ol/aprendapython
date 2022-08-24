@@ -1,0 +1,16 @@
+- Relembre que a expressão:
+
+  - x+y resulta na soma de x com y
+  - x-y resulta na diferença de x com y
+  - x*y resulta na multiplicação de x com y
+  - x//y resulta na divisão inteira de x por y
+  - x/y resulta na divisão fracionária de x por y
+  - x%y resulta no resto da divisão de x por y
+  - x**y resulta na exponeniação de de x por y
+  - math.log(x,b) resulta no logaritmo de x na base b
+  - math.trunc(x) resulta no maior inteiro que seja 
+    menor ou igual a x
+  - "%.df" % x resulta em uma cadeia que representa o
+    número x com d casas decimais (resultado é arredondado)
+ 
+

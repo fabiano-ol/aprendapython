@@ -1,0 +1,5 @@
+- Relembre que a expressão:
+
+  - chr(n) resulta no caractere associado ao código ASCII n
+  - ord(x) resulta no código ASCII do caractere x 
+

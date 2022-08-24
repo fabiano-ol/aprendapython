@@ -1,0 +1,6 @@
+- Relembre que a expressão:
+
+  - str(x) converte a expressão x na cadeia correspondente
+  - int(x) converte a expressão x no inteiro correspondente
+  - float(x) converte a expressão x no real correspondente
+

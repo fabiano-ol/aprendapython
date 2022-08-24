@@ -1,0 +1,17 @@
+- Relembre que a expressão:
+
+  - x and y resulta em Verdadeiro se x e y são ambos igual a 
+    Verdadeiro, e em Falso no caso contrário 
+  - x or y resulta em Verdadeiro se x ou y é igual a 
+    Verdadeiro, e em Falso no caso contrário 
+  - not x resulta em Verdadeiro se x é Falso, 
+    e em Falso no caso contrário 
+  - x < y resulta em Verdadeiro se x é menor que y, e em Falso caso contrário
+  - x > y resulta em Verdadeiro se x é maior que y, e em Falso caso contrário
+  - x <= y resulta em Verdadeiro se x é menor ou igual a y, e em Falso caso contrário
+  - x >= y resulta em Verdadeiro se x é maior ou igual a y, e em Falso caso contrário
+  - x == y resulta em Verdadeiro se x é igual a y, e em Falso caso contrário
+  - x != y resulta em Verdadeiro se x é diferente de y, e em Falso caso contrário
+  - s1 in s2 resulta em verdadeiro se a cadeia s1 é uma subcadeia
+    de s2, e em falso no caso contrário
+
